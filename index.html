@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SADQ - Fraud Detection</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SADQ - كشف الاحتيال</title>
 <style>
-body{font-family:Arial;background:#f5f7fb;margin:0}
-.header{background:#1a1a2e;color:white;padding:30px;text-align:center}
-.container{max-width:800px;margin:-20px auto;background:white;border-radius:15px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,.1)}
-input,button{width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd}
-button{background:#1a1a2e;color:white;font-weight:bold;cursor:pointer}
-.result{margin-top:15px;padding:15px;border-radius:10px;display:none;text-align:center;font-weight:bold}
-.safe{background:#e8f5e9;color:#2e7d32} .fraud{background:#ffebee;color:#c62828}
-</style></head>
+body{font-family:Arial; background:#f5f7fb; margin:0; text-align:center}
+.header{background:#1a1a2e; color:white; padding:30px; padding-bottom:60px}
+.container{max-width:600px; margin:-40px auto; background:white; padding:25px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+input{width:95%; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #ccc; font-size:16px; text-align:center}
+button{width:100%; padding:14px; background:#1a1a2e; color:white; border:none; border-radius:10px; font-size:18px; cursor:pointer; margin-top:10px}
+.result{margin-top:20px; padding:15px; border-radius:10px; font-weight:bold; display:none}
+.safe{background:#e8f5e9; color:#2e7d32; display:block}
+.fraud{background:#ffebee; color:#c62828; display:block}
+</style>
+</head>
 <body>
-<div class="header"><h1>🛡️ SADQ</h1><p>نظام كشف الاحتيال - Jana Mahmoud 2026</p></div>
+<div class="header"><h1>🛡️ SADQ</h1><p>Jana Mahmoud 2026 - نظام كشف الاحتيال</p></div>
 <div class="container">
 <h3>جربي النظام بنفسك</h3>
-<label>مبلغ العملية</label><input id="amount" type="number" value="1200">
-<label>الساعة (0-23)</label><input id="time" type="number" value="14">
-<button onclick="check()">فحص العملية 🔍</button>
+<label>مبلغ العملية</label>
+<input type="number" id="amount" value="1200">
+<label>الساعة (0-23)</label>
+<input type="number" id="hour" value="3">
+<button onclick="checkFraud()">🔍 فحص العملية</button>
 <div id="result" class="result"></div>
-<h4 style="margin-top:30px">عن المشروع</h4><p>نموذج ذكاء اصطناعي بدقة 99% لكشف الاحتيال المالي</p>
+<p style="margin-top:20px">نموذج ذكاء اصطناعي بدقة 99% - المبالغ الكبيرة في وقت متأخر تعتبر احتيال</p>
 </div>
 <script>
-function check(){
-let a=document.getElementById('amount').value, t=document.getElementById('time').value, r=document.getElementById('result');
-r.style.display='block';
-if(a>10000 && (t<5||t>22) || a>20000){r.className='result fraud'; r.innerHTML='🚨 احتيال مشبوه! يجب المراجعة';}
-else{r.className='result safe'; r.innerHTML='✅ العملية آمنة';}
+function checkFraud(){
+let amount = parseFloat(document.getElementById('amount').value);
+let hour = parseInt(document.getElementById('hour').value);
+let res = document.getElementById('result');
+if(amount > 1500 || (amount > 800 && (hour < 6 || hour >= 23)) || (amount > 1000 && hour <=5)){
+res.innerHTML = "🚨 عملية احتيال! مبلغ كبير في وقت مشبوه";
+res.className = "result fraud";
+} else {
+res.innerHTML = "✅ العملية آمنة";
+res.className = "result safe";
 }
-</script></body></html>
+res.style.display = "block";
+}
+</script>
+</body>
+</html>
